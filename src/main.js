@@ -1,4 +1,17 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+
+import router from './router/index.js'
+
+app.use(router)
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.title) {
+        document.title = to.meta.title
+    }
+    next()
+})
+
+app.mount('#app')
